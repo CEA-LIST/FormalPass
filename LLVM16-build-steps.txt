@@ -7,23 +7,7 @@ How I installed and built LLVM 16 (to benefit from LLVM's automatic vectorizatio
 4) cd llvm-project/
 *In case clang is not installed 
 5) sudo apt install clang-5.0 --install-suggests
-*In case a clang version less than v5.0 is already installed but you need to switch to the v5.0
-6) sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.8 100
-
-sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-5.0 1000
-
-sudo update-alternatives --install /usr/bin/clang++ clang /usr/bin/clang-3.8 100
-
-sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.8 100
-
-sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-5.0 1000
-
-sudo update-alternatives --config clang
-
-sudo update-alternatives --config clang++
-
-
-7) cmake -S llvm -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS=all -DLLVM_ENABLE_ASSERTIONS=ON
+6) cmake -S llvm -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS=all -DLLVM_ENABLE_ASSERTIONS=ON
 
 Build Type          Optimizations       Debug Info       ASSERTIONS      Best Suited For
 Release             For speed           No               No              Users of LLVM and Clang
@@ -34,12 +18,12 @@ MinSizeRel          For Size            No               No              When di
 
 Builds with debug information can use a lot of RAM and disk space and is usually slower to run. You can improve RAM usage by using lld, see the LLVM_USE_LINKER option: Override the system’s default linker. For instance use lld with -DLLVM_USE_LINKER=lld.
 
-8) make -C build check-llvm
+7) make -C build check-llvm
 
-9) cd build
+8) cd build
 
-10) make check-lld (to override the system's default linker because LLVM's lld is faster!).
+9) make check-lld (to override the system's default linker because LLVM's lld is faster!).
 
-11) make -j8 clang (or to build the whole compiler: make -j8) 
+10) make -j8 clang (or to build the whole compiler: make -j8) 
 
-12) make -j8 llc
+11) make -j8 llc
